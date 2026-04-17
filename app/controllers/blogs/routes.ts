@@ -1,0 +1,24 @@
+import { Router } from "express";
+import { createBlog } from "./createBlog";
+import { getBlogById } from "./getBlogsById";
+import { getPublishedBlogs } from "./getPublishedBlogs";
+import { updateBlog } from "./updateBlog";
+import { deleteBlog } from "./deleteBlog";
+import { getAllBlogs } from "./getAllBlogs";
+import { togglePublishStatus } from "./togglePublishStatus";
+import { getBlogSEO } from "./getBlogSeo";
+import { upsertBlogSEO } from "./upsertBlogSeo";
+import { getBlogSectionsById } from "./getBlogSectionsById";
+
+const router = Router();
+router.get("/toc/:id", getBlogSectionsById);
+router.post("/seo", upsertBlogSEO);
+router.get("/seo/:id", getBlogSEO);
+router.post("/", createBlog);
+router.get("/", getAllBlogs);
+router.put("/:id/publish", togglePublishStatus);
+// router.get("/published", getPublishedBlogs);
+router.put("/:id", updateBlog);
+router.delete("/:id", deleteBlog);
+router.get("/:id", getBlogById);
+export default router;

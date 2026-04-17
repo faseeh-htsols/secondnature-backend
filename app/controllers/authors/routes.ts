@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { createAuthor } from "./createAuthor";
+import { getAllAuthors } from "./getAllAuthors";
+import { deleteAuthor } from "./deleteAuthor";
+import { updateAuthor } from "./updateAuthor";
+import { getAuthorById } from "./getAuthorById";
+const router = Router();
+router.post("/", createAuthor);
+router.get("/", getAllAuthors);
+router.get("/:id", getAuthorById);
+router.delete("/:id", deleteAuthor);
+router.put("/:id", updateAuthor);
+export default router;
