@@ -17,8 +17,6 @@ export const updatePoster = async (
 
     try {
         const {
-            title,
-            description,
             showCloseButton,
             buttonOneText,
             buttonOneUrl,
@@ -29,6 +27,12 @@ export const updatePoster = async (
 
         const existingPoster = await prisma.poster.findUnique({
             where: { id },
+            select: {
+                id: true,
+                imageUrl: true,
+                showCloseButton: true,
+                isActive: true,
+            },
         });
 
         if (!existingPoster) {
@@ -47,8 +51,6 @@ export const updatePoster = async (
             where: { id },
             data: {
                 imageUrl,
-                title: title?.trim() || null,
-                description: description?.trim() || null,
                 showCloseButton:
                     showCloseButton !== undefined
                         ? String(showCloseButton) === "true"
@@ -62,11 +64,23 @@ export const updatePoster = async (
                         ? String(isActive) === "true"
                         : existingPoster.isActive,
             },
+            select: {
+                id: true,
+                imageUrl: true,
+                showCloseButton: true,
+                buttonOneText: true,
+                buttonOneUrl: true,
+                buttonTwoText: true,
+                buttonTwoUrl: true,
+                isActive: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
 
         res.status(200).json({
             messages: [{ type: "success", message: "Poster updated successfully." }],
-            data: poster,
+            data: { poster },
         });
     } catch (error: any) {
         console.error("Error updating poster:", error);

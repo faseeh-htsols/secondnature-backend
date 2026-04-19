@@ -13,8 +13,6 @@ export const getPoster = async (
             select: {
                 id: true,
                 imageUrl: true,
-                title: true,
-                description: true,
                 showCloseButton: true,
                 buttonOneText: true,
                 buttonOneUrl: true,

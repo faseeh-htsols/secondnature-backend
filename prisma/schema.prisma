@@ -199,10 +199,8 @@ model TeamMember {
 }
 
 model Poster {
-  id          Int     @id @default(autoincrement())
-  imageUrl    String  @db.VarChar(500)
-  title       String? @db.VarChar(255)
-  description String? @db.Text
+  id       Int    @id @default(autoincrement())
+  imageUrl String @db.VarChar(500)
 
   // close / cross button
   showCloseButton Boolean @default(true)

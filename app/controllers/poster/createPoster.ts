@@ -5,11 +5,8 @@ export const createPoster = async (
     req: Request,
     res: Response,
 ): Promise<void> => {
-    console.log("Received request to create poster with data:", req.body);
     try {
         const {
-            title,
-            description,
             showCloseButton,
             buttonOneText,
             buttonOneUrl,
@@ -48,8 +45,6 @@ export const createPoster = async (
         const poster = await prisma.poster.create({
             data: {
                 imageUrl,
-                title: title?.trim() || null,
-                description: description?.trim() || null,
                 showCloseButton:
                     showCloseButton !== undefined
                         ? String(showCloseButton) === "true"
@@ -61,11 +56,23 @@ export const createPoster = async (
                 isActive:
                     isActive !== undefined ? String(isActive) === "true" : true,
             },
+            select: {
+                id: true,
+                imageUrl: true,
+                showCloseButton: true,
+                buttonOneText: true,
+                buttonOneUrl: true,
+                buttonTwoText: true,
+                buttonTwoUrl: true,
+                isActive: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
 
         res.status(201).json({
             messages: [{ type: "success", message: "Poster created successfully." }],
-            data: poster,
+            data: { poster },
         });
     } catch (error: any) {
         console.error("Error creating poster:", error);
