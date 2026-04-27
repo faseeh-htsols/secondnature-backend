@@ -22,7 +22,11 @@ import publicformRoutes from "../controllers/contact-forms/publicRoutes";
 import formRoutes from "../controllers/contact-forms/routes";
 import teamRoutes from "../controllers/team-members/routes";
 import posterRoutes from "../controllers/poster/routes";
+import posterPublicRoutes from "../controllers/poster/publicRoutes";
+import teamPublicRoutes from "../controllers/team-members/publicRoutes";
 const router = express.Router();
+router.use("/members-site", teamPublicRoutes)
+router.use("/poster-site", posterPublicRoutes)
 router.use("/form", publicformRoutes)
 router.use("/client/blogs", blogPublicRoutes);
 // router.use("/google-reviews", googleRoutes);
