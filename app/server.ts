@@ -14,7 +14,7 @@ import { generateImageFileName } from "./utils/generate-image-name";
 const envirnoment = app_conf.env.nodeEnv;
 const allowedOrigins = [
   "https://second-nature-frontend-swart.vercel.app",
-  "https://blogs.htsol.ca",
+  "https://second-nature-tau.vercel.app",
   // "http://localhost:5173",
   // "http://localhost:5174",
   // app_conf.env.adminAppUrl,
