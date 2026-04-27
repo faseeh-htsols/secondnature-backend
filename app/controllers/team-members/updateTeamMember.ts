@@ -4,14 +4,16 @@ import { TeamMemberCategory } from "@prisma/client";
 
 export const updateTeamMember = async (
     req: Request,
-    res: Response,
+    res: Response
 ): Promise<void> => {
     try {
         const id = Number(req.params.id);
 
         if (!id || Number.isNaN(id)) {
             res.status(400).json({
-                messages: [{ type: "error", message: "Valid team member id is required." }],
+                messages: [
+                    { type: "error", message: "Valid team member id is required." },
+                ],
                 data: null,
             });
             return;
@@ -33,7 +35,11 @@ export const updateTeamMember = async (
 
         let normalizedCategory: TeamMemberCategory | undefined;
 
-        if (category !== undefined && category !== null && String(category).trim() !== "") {
+        if (
+            category !== undefined &&
+            category !== null &&
+            String(category).trim() !== ""
+        ) {
             const formattedCategory = String(category).trim().toUpperCase();
 
             const allowedCategories = Object.values(TeamMemberCategory);
@@ -43,7 +49,8 @@ export const updateTeamMember = async (
                     messages: [
                         {
                             type: "error",
-                            message: "Invalid category. Allowed values are CLINICAL, EDUCATION, BOTH.",
+                            message:
+                                "Invalid category. Allowed values are CLINICAL, EDUCATION, BOTH.",
                         },
                     ],
                     data: null,
@@ -52,6 +59,14 @@ export const updateTeamMember = async (
             }
 
             normalizedCategory = formattedCategory as TeamMemberCategory;
+        }
+
+        if (fullName !== undefined && String(fullName).trim() === "") {
+            res.status(400).json({
+                messages: [{ type: "error", message: "Full name cannot be empty." }],
+                data: null,
+            });
+            return;
         }
 
         let pictureUrl = existingTeamMember.pictureUrl;
@@ -64,17 +79,27 @@ export const updateTeamMember = async (
             where: { id },
             data: {
                 fullName:
-                    fullName !== undefined ? String(fullName).trim() : existingTeamMember.fullName,
-                degree: degree !== undefined ? String(degree).trim() : existingTeamMember.degree,
+                    fullName !== undefined
+                        ? String(fullName).trim()
+                        : existingTeamMember.fullName,
+
+                degree:
+                    degree !== undefined
+                        ? String(degree).trim() || null
+                        : existingTeamMember.degree,
+
                 designation:
                     designation !== undefined
-                        ? String(designation).trim()
+                        ? String(designation).trim() || null
                         : existingTeamMember.designation,
+
                 category: normalizedCategory ?? existingTeamMember.category,
+
                 description:
                     description !== undefined
-                        ? String(description).trim()
+                        ? String(description).trim() || null
                         : existingTeamMember.description,
+
                 pictureUrl,
             },
         });

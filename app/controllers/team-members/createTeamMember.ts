@@ -17,21 +17,21 @@ export const createTeamMember = async (
             return;
         }
 
-        if (!degree?.trim()) {
-            res.status(400).json({
-                messages: [{ type: "error", message: "Degree is required." }],
-                data: null,
-            });
-            return;
-        }
+        // if (!degree?.trim()) {
+        //     res.status(400).json({
+        //         messages: [{ type: "error", message: "Degree is required." }],
+        //         data: null,
+        //     });
+        //     return;
+        // }
 
-        if (!designation?.trim()) {
-            res.status(400).json({
-                messages: [{ type: "error", message: "Designation is required." }],
-                data: null,
-            });
-            return;
-        }
+        // if (!designation?.trim()) {
+        //     res.status(400).json({
+        //         messages: [{ type: "error", message: "Designation is required." }],
+        //         data: null,
+        //     });
+        //     return;
+        // }
 
         if (!category?.trim()) {
             res.status(400).json({
@@ -41,13 +41,13 @@ export const createTeamMember = async (
             return;
         }
 
-        if (!description?.trim()) {
-            res.status(400).json({
-                messages: [{ type: "error", message: "Description is required." }],
-                data: null,
-            });
-            return;
-        }
+        // if (!description?.trim()) {
+        //     res.status(400).json({
+        //         messages: [{ type: "error", message: "Description is required." }],
+        //         data: null,
+        //     });
+        //     return;
+        // }
 
         if (!req.file) {
             res.status(400).json({

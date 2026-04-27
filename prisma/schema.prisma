@@ -187,10 +187,10 @@ model CommonForm {
 model TeamMember {
   id          Int                @id @default(autoincrement())
   fullName    String             @db.VarChar(255)
-  degree      String             @db.VarChar(255)
-  designation String             @db.VarChar(255)
+  degree      String?            @db.VarChar(255)
+  designation String?            @db.VarChar(255)
   category    TeamMemberCategory
-  description String             @db.LongText
+  description String?            @db.LongText
   pictureUrl  String             @db.VarChar(500)
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
