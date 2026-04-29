@@ -50,7 +50,7 @@ export const getAllTeamMembers = async (
                 skip,
                 take: limit,
                 orderBy: {
-                    id: "desc",
+                    id: "asc",
                 },
                 select: {
                     id: true,
